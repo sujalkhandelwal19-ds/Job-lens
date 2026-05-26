@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block meta_description %}JobLens — AI-powered job market intelligence platform for Indian tech professionals. Analyze skills, predict salaries, and find your dream job.{% endblock %}
+
+{% block content %}
+<!-- ═══ Hero Section ═══ -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title animate-in">🔍 JobLens</h1>
+        <p class="hero-subtitle animate-in animate-delay-1">
+            Smart Job Market Intelligence Platform — Powered by Data Science & Machine Learning
+        </p>
+        <div class="d-flex justify-content-center gap-3 animate-in animate-delay-2" style="position:relative;z-index:1">
+            <a href="/dashboard" class="btn btn-primary-custom">
+                <i class="bi bi-graph-up me-2"></i>Explore Dashboard
+            </a>
+            <a href="/resume-analyzer" class="btn btn-outline-custom">
+                <i class="bi bi-file-person me-2"></i>Analyze Resume
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Stats Bar ═══ -->
+<section class="py-4" style="background:rgba(108,92,231,0.05);border-top:1px solid var(--border-glass);border-bottom:1px solid var(--border-glass);">
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.total_jobs | default('1,000+') }}</div>
+                    <div class="stat-label">Jobs Analyzed</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.total_companies | default('75+') }}</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.total_skills | default('150+') }}</div>
+                    <div class="stat-label">Skills Tracked</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-number">{{ stats.total_cities | default('14') }}</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ Feature Cards ═══ -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">What Can JobLens Do?</h2>
+            <p class="section-subtitle">Everything you need to navigate the Indian tech job market</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3 animate-in animate-delay-1">
+                <a href="/dashboard" style="text-decoration:none;color:inherit">
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon purple"><i class="bi bi-bar-chart-fill"></i></div>
+                        <h4>Market Insights</h4>
+                        <p>Real-time analytics on job demand, top skills, salaries, and hiring trends across India.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3 animate-in animate-delay-2">
+                <a href="/salary-predictor" style="text-decoration:none;color:inherit">
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon teal"><i class="bi bi-currency-rupee"></i></div>
+                        <h4>Salary Predictor</h4>
+                        <p>ML-powered salary predictions based on role, experience, location, and skills.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3 animate-in animate-delay-3">
+                <a href="/resume-analyzer" style="text-decoration:none;color:inherit">
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon blue"><i class="bi bi-file-earmark-person"></i></div>
+                        <h4>Resume Analyzer</h4>
+                        <p>Upload your resume, get skill gap analysis, match scores, and job recommendations.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-lg-3 animate-in animate-delay-4">
+                <a href="/job-recommendations" style="text-decoration:none;color:inherit">
+                    <div class="glass-card feature-card">
+                        <div class="feature-icon green"><i class="bi bi-briefcase-fill"></i></div>
+                        <h4>Job Recommendations</h4>
+                        <p>Smart job matching using TF-IDF and cosine similarity with your resume.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ How It Works ═══ -->
+<section class="py-5" style="background:rgba(0,0,0,0.2);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Data-driven intelligence in three simple steps</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="glass-card text-center p-4">
+                    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+                    <h5 class="fw-bold">1. Data Collection</h5>
+                    <p class="text-secondary small">We scrape and analyze 1000+ job postings from major Indian job portals daily.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card text-center p-4">
+                    <div style="font-size:2.5rem;margin-bottom:1rem;">🤖</div>
+                    <h5 class="fw-bold">2. ML Processing</h5>
+                    <p class="text-secondary small">NLP extracts skills, ML models predict salaries, and classifiers match roles.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card text-center p-4">
+                    <div style="font-size:2.5rem;margin-bottom:1rem;">🎯</div>
+                    <h5 class="fw-bold">3. Smart Insights</h5>
+                    <p class="text-secondary small">Get personalized recommendations, skill gaps, and career guidance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

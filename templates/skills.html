@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Skill Gap Analysis{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1 class="section-title"><i class="bi bi-lightning me-2"></i>Skill Intelligence</h1>
+        <p class="section-subtitle">Understand skill demand, trends, and co-occurrence in the Indian tech market</p>
+
+        <!-- ═══ Skill Demand Heatmap ═══ -->
+        <div class="glass-card chart-container mb-4">
+            <h5 class="fw-bold"><i class="bi bi-grid-3x3 me-2"></i>Skill Demand by Role</h5>
+            <div id="heatmapChart" style="height:450px;"></div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <!-- Trending Skills -->
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <h5 class="fw-bold text-success mb-3"><i class="bi bi-graph-up-arrow me-2"></i>Trending Up</h5>
+                    {% for item in trending %}
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2" style="background:var(--bg-glass);border-radius:var(--radius-sm);">
+                        <span>{{ item.skill }}</span>
+                        <span class="skill-badge trending-up"><i class="bi bi-arrow-up"></i> {{ item.slope }}</span>
+                    </div>
+                    {% endfor %}
+                    {% if not trending %}
+                    <p class="text-secondary small">Trend data will appear after data collection</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Declining Skills -->
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <h5 class="fw-bold text-danger mb-3"><i class="bi bi-graph-down-arrow me-2"></i>Trending Down</h5>
+                    {% for item in declining %}
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2" style="background:var(--bg-glass);border-radius:var(--radius-sm);">
+                        <span>{{ item.skill }}</span>
+                        <span class="skill-badge trending-down"><i class="bi bi-arrow-down"></i> {{ item.slope }}</span>
+                    </div>
+                    {% endfor %}
+                    {% if not declining %}
+                    <p class="text-secondary small">No declining skills detected</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Stable Skills -->
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <h5 class="fw-bold mb-3" style="color:var(--info)"><i class="bi bi-dash-lg me-2"></i>Stable Demand</h5>
+                    {% for item in stable %}
+                    <div class="d-flex justify-content-between align-items-center mb-2 p-2" style="background:var(--bg-glass);border-radius:var(--radius-sm);">
+                        <span>{{ item.skill }}</span>
+                        <span class="skill-badge neutral">{{ item.avg_count }}</span>
+                    </div>
+                    {% endfor %}
+                    {% if not stable %}
+                    <p class="text-secondary small">Stability data loading...</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Skill Co-occurrence ═══ -->
+        <div class="glass-card chart-container">
+            <h5 class="fw-bold"><i class="bi bi-diagram-3 me-2"></i>Skill Co-occurrence — Which Skills Appear Together</h5>
+            <div id="cooccurrenceChart" style="height:450px;"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// ─── Heatmap Data ────────────────────────────────────────────────
+const heatmapData = {{ heatmap_data | tojson }};
+if (heatmapData && document.getElementById('heatmapChart')) {
+    const trace = {
+        z: heatmapData.values,
+        x: heatmapData.skills,
+        y: heatmapData.roles,
+        type: 'heatmap',
+        colorscale: [[0, '#0a0a1a'], [0.5, '#6c5ce7'], [1, '#00cec9']],
+        hovertemplate: '<b>%{y}</b><br>%{x}: %{z} mentions<extra></extra>'
+    };
+    const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#a0a0c0', family: 'Inter', size: 11 },
+        margin: { t: 10, r: 30, b: 100, l: 120 },
+        xaxis: { tickangle: -40 }
+    };
+    Plotly.newPlot('heatmapChart', [trace], layout, { responsive: true, displayModeBar: false });
+}
+
+// ─── Co-occurrence Heatmap ───────────────────────────────────────
+const coData = {{ cooccurrence_data | tojson }};
+if (coData && document.getElementById('cooccurrenceChart')) {
+    const trace = {
+        z: coData.values,
+        x: coData.labels,
+        y: coData.labels,
+        type: 'heatmap',
+        colorscale: [[0, '#0a0a1a'], [0.3, '#4834d4'], [0.7, '#a29bfe'], [1, '#81ecec']],
+        hovertemplate: '<b>%{x}</b> + <b>%{y}</b><br>Appear together: %{z} times<extra></extra>'
+    };
+    const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#a0a0c0', family: 'Inter', size: 10 },
+        margin: { t: 10, r: 30, b: 100, l: 100 },
+        xaxis: { tickangle: -45 }, yaxis: { autorange: 'reversed' }
+    };
+    Plotly.newPlot('cooccurrenceChart', [trace], layout, { responsive: true, displayModeBar: false });
+}
+</script>
+{% endblock %}

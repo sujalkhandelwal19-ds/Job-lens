@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block meta_description %}Live job market analytics dashboard — top skills, salaries, hiring trends across Indian tech industry{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1 class="section-title"><i class="bi bi-graph-up me-2"></i>Market Dashboard</h1>
+        <p class="section-subtitle">Real-time job market intelligence across 1000+ postings</p>
+
+        <!-- ═══ Metric Cards ═══ -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="glass-card metric-card">
+                    <div class="metric-icon" style="background:rgba(108,92,231,0.15);color:var(--primary-light)"><i class="bi bi-briefcase-fill"></i></div>
+                    <div>
+                        <div class="metric-value" id="totalJobs">—</div>
+                        <div class="metric-label">Total Jobs</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="glass-card metric-card">
+                    <div class="metric-icon" style="background:rgba(0,206,201,0.15);color:var(--accent)"><i class="bi bi-currency-rupee"></i></div>
+                    <div>
+                        <div class="metric-value" id="avgSalary">—</div>
+                        <div class="metric-label">Avg Salary</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="glass-card metric-card">
+                    <div class="metric-icon" style="background:rgba(116,185,255,0.15);color:var(--info)"><i class="bi bi-lightning-fill"></i></div>
+                    <div>
+                        <div class="metric-value" id="topSkill" style="font-size:1.1rem">—</div>
+                        <div class="metric-label">Top Skill</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="glass-card metric-card">
+                    <div class="metric-icon" style="background:rgba(0,184,148,0.15);color:var(--success)"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div>
+                        <div class="metric-value" id="topCity" style="font-size:1.1rem">—</div>
+                        <div class="metric-label">Top City</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Charts Row 1 ═══ -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+                <div class="glass-card chart-container">
+                    <div id="skillsChart" style="height:400px;"></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="glass-card chart-container">
+                    <div id="salaryChart" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Charts Row 2 ═══ -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-5">
+                <div class="glass-card chart-container">
+                    <div id="cityChart" style="height:400px;"></div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="glass-card chart-container">
+                    <div id="companyChart" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Trend Chart ═══ -->
+        <div class="row g-4 mb-4">
+            <div class="col-12">
+                <div class="glass-card chart-container">
+                    <div id="trendChart" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Recent Jobs Table ═══ -->
+        <div class="glass-card">
+            <h5 class="fw-bold mb-3"><i class="bi bi-clock-history me-2"></i>Recent Job Postings</h5>
+            <div class="table-responsive">
+                <table class="table-dark-custom">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>Salary</th>
+                            <th>Experience</th>
+                            <th>Posted</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentJobsBody">
+                        <tr><td colspan="6" class="text-center py-4">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
