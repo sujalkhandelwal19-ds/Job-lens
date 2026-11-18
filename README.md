@@ -1,6 +1,6 @@
 # 🔍 JobLens — Smart Job Market Intelligence Platform
 
-A full-stack data science web application that analyzes the Indian tech job market using web scraping, NLP, and machine learning to deliver real-time insights, salary predictions, resume analysis, and personalized job recommendations.
+A full-stack data science web application that analyzes Indian tech job-market data using web scraping, NLP, and machine learning to deliver market insights, salary estimates, resume analysis, and personalized job recommendations.
 
 ---
 
@@ -75,7 +75,7 @@ JobLens/
 Interactive Plotly.js charts visualizing top skills, salary distributions, city-wise job density, top hiring companies, and skill demand trends over time.
 
 ### 💰 Salary Predictor
-Select your role, city, experience level, company tier, and skills — the trained ML model returns a predicted salary with confidence range. Uses the best-performing model from a comparison of Linear Regression, Random Forest, and XGBoost.
+Select your role, city, experience level, company tier, and skills — the trained ML model returns a predicted salary with an estimated range (the range is not a statistical confidence interval). Uses the best-performing model from a comparison of Linear Regression, Random Forest, and XGBoost.
 
 ### 📄 Resume Analyzer
 Upload a PDF or TXT resume. The system extracts skills using NLP, compares against market demand, calculates a match score, identifies skill gaps, suggests improvements, and recommends matching jobs.
@@ -90,8 +90,8 @@ Heatmap showing skill demand across roles, trending vs declining skills using li
 
 | Model | Algorithm | Task | Performance |
 |-------|-----------|------|-------------|
-| Salary Predictor | Random Forest (best of 3) | Regression | R² ≈ 0.90+ |
-| Role Classifier | Random Forest + TF-IDF | Multi-class classification | ~100% accuracy |
+| Salary Predictor | Best of Linear Regression / Random Forest / XGBoost | Regression | Evaluated with MAE, RMSE and R² |
+| Role Classifier | Best of Multinomial Naive Bayes / Random Forest + TF-IDF | Multi-class classification | Evaluated with accuracy and classification report |
 | Resume Matcher | TF-IDF + Cosine Similarity | Information retrieval | Top-10 ranked results |
 | Trend Analyzer | Linear Regression | Time-series slope detection | Weekly aggregation |
 
@@ -161,4 +161,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-**Developed by [Sujal Khandelwal](https://github.com/sujalkhandelwal19-ds)**
+**Developed by Sujal Khandelwal**

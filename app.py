@@ -48,7 +48,9 @@ except ImportError:
 
 # ─── Flask App Setup ─────────────────────────────────────────────
 app = Flask(__name__)
-app.secret_key = 'joblens-secret-key-2026'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-only-change-me')
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB max upload
 app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'uploads')
 
@@ -246,13 +248,13 @@ def predict_salary():
                 exp_factor = 1 + (experience * 0.08)
                 tier_factor = {'top': 1.5, 'mid': 1.0, 'small': 0.85}.get(company_tier, 1.0)
                 predicted = avg_sal * exp_factor * tier_factor * (1 + skills_count * 0.01)
-                predicted = min(predicted, 100)
+                predicted = max(0, predicted)
                 result = {
                     'predicted_salary': round(predicted, 1),
                     'salary_min': round(predicted * 0.85, 1),
                     'salary_max': round(predicted * 1.15, 1),
                     'unit': 'LPA',
-                    'confidence': 'Estimated from market data (statistical model)'
+                    'confidence': 'Estimated from market data (fallback statistical estimate)'
                 }
             else:
                 result = {'error': 'Not enough data for this role. Try another role.'}
@@ -485,4 +487,4 @@ if __name__ == '__main__':
     print("=" * 60)
     print(f"Server starting at http://127.0.0.1:5000")
     print("Press Ctrl+C to stop\n")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=os.environ.get('FLASK_DEBUG', '0') == '1', host='0.0.0.0', port=5000)
