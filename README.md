@@ -90,8 +90,8 @@ Heatmap showing skill demand across roles, trending vs declining skills using li
 
 | Model | Algorithm | Task | Performance |
 |-------|-----------|------|-------------|
-| Salary Predictor | Random Forest (best of 3) | Regression | R² ≈ 0.90+ |
-| Role Classifier | Random Forest + TF-IDF | Multi-class classification | ~100% accuracy |
+| Salary Predictor | Best of Linear Regression / Random Forest / XGBoost | Regression | Evaluated with MAE, RMSE and R² |
+| Role Classifier | Best of Multinomial Naive Bayes / Random Forest + TF-IDF | Multi-class classification | Evaluated with accuracy and classification report |
 | Resume Matcher | TF-IDF + Cosine Similarity | Information retrieval | Top-10 ranked results |
 | Trend Analyzer | Linear Regression | Time-series slope detection | Weekly aggregation |
 
